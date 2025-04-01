@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8 mb-32">
-      <h1 className="text-4xl font-bold mb-6">MP3 Player</h1>
+      <h1 className="text-4xl font-bold mb-6">Playo</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">

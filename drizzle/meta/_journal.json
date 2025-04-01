@@ -15,6 +15,20 @@
       "when": 1743486031433,
       "tag": "0001_regular_whizzer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1743489745161,
+      "tag": "0002_cold_outlaw_kid",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1743490227656,
+      "tag": "0003_pale_kinsey_walden",
+      "breakpoints": true
     }
   ]
 }

@@ -1,7 +1,6 @@
 // src/server/db/schema.ts
 import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
-
 export const songs = pgTable("songs", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
