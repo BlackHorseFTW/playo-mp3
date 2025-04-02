@@ -1,6 +1,16 @@
 // src/server/db/schema.ts
 import { pgTable, serial, text, timestamp, varchar } from "drizzle-orm/pg-core";
 
+export const posts = pgTable("posts", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  cloudinaryUrl: text("cloudinary_url"),
+  cloudinaryPublicId: text("cloudinary_public_id"),
+  createdAt: timestamp("created_at").defaultNow(), // ✅ Add this line
+});
+
+
+
 export const songs = pgTable("songs", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),

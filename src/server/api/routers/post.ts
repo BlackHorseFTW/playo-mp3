@@ -1,30 +1,34 @@
 import { z } from "zod";
-
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 import { posts } from "../../db/schema";
+import { desc } from "drizzle-orm";
 
 export const postRouter = createTRPCRouter({
-	hello: publicProcedure
-		.input(z.object({ text: z.string() }))
-		.query(({ input }) => {
-			return {
-				greeting: `Hello ${input.text}`,
-			};
-		}),
+  getLatest: publicProcedure.query(async ({ ctx }) => {
+    const post = await ctx.db
+      .select()
+      .from(posts)
+      .orderBy(desc(posts.createdAt))
+      .limit(1);
 
-	create: publicProcedure
-		.input(z.object({ name: z.string().min(1) }))
-		.mutation(async ({ ctx, input }) => {
-			await ctx.db.insert(posts).values({
-				name: input.name,
-			});
-		}),
+    return post[0] ?? null;
+  }),
 
-	getLatest: publicProcedure.query(async ({ ctx }) => {
-		const post = await ctx.db.query.posts.findFirst({
-			orderBy: (posts, { desc }) => [desc(posts.createdAt)],
-		});
+  create: publicProcedure
+    .input(
+      z.object({
+        title: z.string().min(1),
+        cloudinaryUrl: z.string().optional(),
+        cloudinaryPublicId: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const newPost = await ctx.db.insert(posts).values({
+        title: input.title,
+        cloudinaryUrl: input.cloudinaryUrl ?? null,
+        cloudinaryPublicId: input.cloudinaryPublicId ?? null,
+      });
 
-		return post ?? null;
-	}),
+      return newPost;
+    }),
 });
